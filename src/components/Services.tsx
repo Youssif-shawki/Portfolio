@@ -1,22 +1,34 @@
-import { Code, Smartphone, Palette, BarChart3, Cloud, Zap } from 'lucide-react';
-import { services } from '@/data/portfolio';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
+import {
+  Code,
+  Smartphone,
+  Palette,
+  Plug,
+  Database,
+  Lightbulb,
+  Wrench,
+} from "lucide-react";
+
+import { services } from "@/data/portfolio";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const iconMap: Record<string, typeof Code> = {
   Code,
   Smartphone,
   Palette,
-  BarChart3,
-  Cloud,
-  Zap,
+  Plug,
+  Database,
+  Lightbulb,
+  Wrench,
 };
-
 export default function Services() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
 
   return (
     <section id="services" className="section-padding">
-      <div ref={ref} className={`container-max reveal ${visible ? 'visible' : ''}`}>
+      <div
+        ref={ref}
+        className={`container-max reveal ${visible ? "visible" : ""}`}
+      >
         <div className="mb-12 text-center">
           <span className="badge mb-4">
             <span className="h-2 w-2 rounded-full bg-accent" />
@@ -26,8 +38,8 @@ export default function Services() {
             Services I <span className="accent-text-gradient">offer</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-text-secondary">
-            From concept to deployment, I provide end-to-end development services
-            tailored to your needs.
+            From concept to deployment, I provide end-to-end development
+            services tailored to your needs.
           </p>
         </div>
 

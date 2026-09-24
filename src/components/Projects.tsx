@@ -1,20 +1,27 @@
-import { useState } from 'react';
-import { X, ExternalLink, Github, Star } from 'lucide-react';
-import { projects } from '@/data/portfolio';
-import type { Project } from '@/data/portfolio';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useState } from "react";
+import { X, ExternalLink, Github, Star } from "lucide-react";
+import { projects } from "@/data/portfolio";
+import type { Project } from "@/data/portfolio";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Projects() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
   const [selected, setSelected] = useState<Project | null>(null);
-  const [filter, setFilter] = useState<string>('All');
+  const [filter, setFilter] = useState<string>("All");
 
-  const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
-  const filtered = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+  const categories = [
+    "All",
+    ...Array.from(new Set(projects.map((p) => p.category))),
+  ];
+  const filtered =
+    filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
     <section id="projects" className="section-padding">
-      <div ref={ref} className={`container-max reveal ${visible ? 'visible' : ''}`}>
+      <div
+        ref={ref}
+        className={`container-max reveal ${visible ? "visible" : ""}`}
+      >
         <div className="mb-12 text-center">
           <span className="badge mb-4">
             <span className="h-2 w-2 rounded-full bg-accent" />
@@ -24,7 +31,8 @@ export default function Projects() {
             Featured <span className="accent-text-gradient">projects</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-text-secondary">
-            A selection of work I'm proud of — from enterprise dashboards to consumer apps.
+            A selection of work I'm proud of — from enterprise dashboards to
+            consumer apps.
           </p>
         </div>
 
@@ -36,8 +44,8 @@ export default function Projects() {
               onClick={() => setFilter(cat)}
               className={`rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ${
                 filter === cat
-                  ? 'accent-gradient text-white shadow-lg'
-                  : 'border border-border bg-surface text-text-secondary hover:border-accent hover:text-accent'
+                  ? "accent-gradient text-background shadow-lg"
+                  : "border border-border bg-surface text-text-secondary hover:border-accent hover:text-accent"
               }`}
             >
               {cat}
@@ -61,7 +69,7 @@ export default function Projects() {
                   alt={project.title}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  style={{ borderBottom: '1px solid var(--image-border)' }}
+                  style={{ borderBottom: "1px solid var(--image-border)" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity group-hover:opacity-40" />
                 {project.featured && (
@@ -142,7 +150,9 @@ export default function Projects() {
               </p>
 
               <div className="mb-6">
-                <h4 className="mb-3 text-sm font-semibold text-text-primary">Tech Stack</h4>
+                <h4 className="mb-3 text-sm font-semibold text-text-primary">
+                  Tech Stack
+                </h4>
                 <div className="flex flex-wrap gap-2">
                   {selected.tags.map((tag) => (
                     <span

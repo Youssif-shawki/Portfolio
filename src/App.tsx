@@ -27,7 +27,7 @@ function App() {
         <Skills />
         <Experience />
         <Education />
-        <Timeline />
+        {/* <Timeline /> */}
         <Contact />
       </main>
       <Footer />

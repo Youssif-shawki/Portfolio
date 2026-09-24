@@ -8,17 +8,23 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section-padding">
-      <div ref={ref} className={`container-max reveal ${visible ? 'visible' : ''}`}>
+      <div
+        ref={ref}
+        className={`container-max reveal ${visible ? 'visible' : ''}`}
+      >
         <div className="mb-12 text-center">
           <span className="badge mb-4">
             <span className="h-2 w-2 rounded-full bg-accent" />
             Expertise
           </span>
+
           <h2 className="section-title text-text-primary">
-            Skills & <span className="accent-text-gradient">technologies</span>
+            Skills &{' '}
+            <span className="accent-text-gradient">technologies</span>
           </h2>
+
           <p className="mx-auto mt-4 max-w-xl text-text-secondary">
-            The tools and technologies I use to bring projects to life.
+            Technologies and tools I use to build modern and reliable mobile applications.
           </p>
         </div>
 
@@ -28,23 +34,16 @@ export default function Skills() {
               <h3 className="mb-5 font-display text-lg font-bold text-text-primary">
                 {category}
               </h3>
-              <div className="space-y-4">
+
+              <div className="flex flex-wrap gap-3">
                 {skills
-                  .filter((s) => s.category === category)
+                  .filter((skill) => skill.category === category)
                   .map((skill) => (
-                    <div key={skill.name}>
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="text-sm font-medium text-text-primary">
-                          {skill.name}
-                        </span>
-                        <span className="text-sm text-text-muted">{skill.level}%</span>
-                      </div>
-                      <div className="h-2 overflow-hidden rounded-full bg-surface border border-border">
-                        <div
-                          className="h-full rounded-full accent-gradient transition-all duration-1000 ease-out"
-                          style={{ width: visible ? `${skill.level}%` : '0%' }}
-                        />
-                      </div>
+                    <div
+                      key={skill.name}
+                      className="rounded-xl border border-border bg-surface px-4 py-3 text-sm font-medium text-text-primary transition-all duration-300 hover:border-accent hover:text-accent"
+                    >
+                      {skill.name}
                     </div>
                   ))}
               </div>

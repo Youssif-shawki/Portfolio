@@ -9,9 +9,11 @@ interface HeaderProps {
 
 const navLinks = [
   { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
+  { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -23,7 +25,7 @@ export default function Header({ theme, onToggleTheme }: HeaderProps) {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = ['about', 'skills', 'projects', 'experience', 'contact'];
+      const sections = ['about', 'services', 'projects', 'skills', 'experience', 'education', 'contact'];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
@@ -48,11 +50,11 @@ export default function Header({ theme, onToggleTheme }: HeaderProps) {
       <nav className="container-max flex items-center justify-between px-4">
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 group">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg accent-gradient text-white shadow-lg transition-transform group-hover:scale-110">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg accent-gradient text-background shadow-lg transition-transform group-hover:scale-110">
             <Code2 className="h-5 w-5" />
           </span>
           <span className="font-display text-lg font-bold text-text-primary">
-            Alex<span className="accent-text-gradient">.dev</span>
+            Youssif<span className="accent-text-gradient">.dev</span>
           </span>
         </a>
 

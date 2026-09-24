@@ -1,51 +1,84 @@
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useEffect, useRef } from "react";
+import {
+  Mail,
+  Phone,
+  Send,
+  Github,
+  Linkedin,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import { useForm, ValidationError } from "@formspree/react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Contact() {
   const { ref, visible } = useScrollReveal<HTMLDivElement>();
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [state, handleSubmit] = useForm("xwlpbzlz");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => {
-      setSent(false);
-      setForm({ name: '', email: '', message: '' });
-    }, 3000);
-  };
+  // Reset form after successful submission
+  useEffect(() => {
+    if (state.succeeded) {
+      const timer = setTimeout(() => {
+        formRef.current?.reset();
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [state.succeeded]);
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'alex@carter.dev', href: 'mailto:alex@carter.dev' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-    { icon: MapPin, label: 'Location', value: 'San Francisco, CA', href: '#' },
+    {
+      icon: Mail,
+      label: "Email",
+      value: "youssifshakwi49@gmail.com",
+      href: "mailto:youssifshakwi49@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "Call",
+      value: "+20 155 820 6333",
+      href: "tel:+201558206333",
+    },
   ];
 
   const socials = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
+    {
+      icon: Github,
+      href: "https://github.com/Youssif-shawki",
+      label: "GitHub",
+    },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/in/youssifshawky",
+      label: "LinkedIn",
+    },
   ];
 
   return (
     <section id="contact" className="section-padding">
-      <div ref={ref} className={`container-max reveal ${visible ? 'visible' : ''}`}>
+      <div
+        ref={ref}
+        className={`container-max reveal ${visible ? "visible" : ""}`}
+      >
         <div className="mb-12 text-center">
           <span className="badge mb-4">
             <span className="h-2 w-2 rounded-full bg-accent" />
             Contact
           </span>
+
           <h2 className="section-title text-text-primary">
-            Let's <span className="accent-text-gradient">talk</span>
+            Let's <span className="accent-text-gradient">work together</span>
           </h2>
+
           <p className="mx-auto mt-4 max-w-xl text-text-secondary">
-            Have a project in mind or just want to say hi? I'd love to hear from you.
+            Have an app idea or a project in mind? Let's discuss how I can help
+            turn it into a real product.
           </p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
-          {/* Left: contact info */}
+          {/* Contact Information */}
           <div className="space-y-4">
             {contactInfo.map(({ icon: Icon, label, value, href }) => (
               <a
@@ -56,6 +89,7 @@ export default function Contact() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface border border-border text-accent">
                   <Icon className="h-6 w-6" />
                 </span>
+
                 <div>
                   <p className="text-xs text-text-muted">{label}</p>
                   <p className="font-medium text-text-primary">{value}</p>
@@ -64,12 +98,15 @@ export default function Contact() {
             ))}
 
             <div className="card p-5">
-              <p className="mb-3 text-sm text-text-secondary">Follow me on social media</p>
+              <p className="mb-3 text-sm text-text-secondary">Find me online</p>
+
               <div className="flex gap-3">
                 {socials.map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
                     href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
                     className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-text-secondary transition-all hover:border-accent hover:text-accent hover:-translate-y-1"
                   >
@@ -80,57 +117,132 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right: form */}
-          <form onSubmit={handleSubmit} className="card space-y-5 p-8">
+          {/* Contact Form */}
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="card space-y-5 p-8"
+          >
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium text-text-primary">
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-medium text-text-primary"
+              >
                 Name
               </label>
+
               <input
                 id="name"
                 type="text"
+                name="name"
                 required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="Your name"
                 className="input-field"
               />
+
+              <ValidationError
+                prefix="Name"
+                field="name"
+                errors={state.errors}
+              />
             </div>
+
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-text-primary">
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-medium text-text-primary"
+              >
                 Email
               </label>
+
               <input
                 id="email"
                 type="email"
+                name="email"
                 required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="your@email.com"
+                placeholder="YourGmail@gmail.com"
                 className="input-field"
               />
-            </div>
-            <div>
-              <label htmlFor="message" className="mb-2 block text-sm font-medium text-text-primary">
-                Message
-              </label>
-              <textarea
-                id="message"
-                required
-                rows={5}
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                placeholder="Tell me about your project..."
-                className="input-field resize-none"
+
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
               />
             </div>
+
+            <div>
+              <label
+                htmlFor="message"
+                className="mb-2 block text-sm font-medium text-text-primary"
+              >
+                Message
+              </label>
+
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                placeholder="Tell me about your project and how I can help"
+                className="input-field resize-none"
+              />
+
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={state.errors}
+              />
+            </div>
+
+            {/* Success Message */}
+            {state.succeeded && (
+              <div className="flex items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-green-500">
+                <CheckCircle className="h-5 w-5 shrink-0" />
+
+                <div>
+                  <p className="text-sm font-medium">
+                    Message sent successfully!
+                  </p>
+
+                  <p className="mt-0.5 text-xs opacity-80">
+                    Thanks for reaching out. I'll get back to you soon.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {state.errors && !state.succeeded && (
+              <div className="flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-red-500">
+                <AlertCircle className="h-5 w-5 shrink-0" />
+
+                <div>
+                  <p className="text-sm font-medium">Something went wrong.</p>
+
+                  <p className="mt-0.5 text-xs opacity-80">
+                    Please check your information and try again.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
             <button
               type="submit"
-              disabled={sent}
-              className="btn-primary w-full inline-flex items-center justify-center gap-2 disabled:opacity-70"
+              disabled={state.submitting || state.succeeded}
+              className="btn-primary w-full inline-flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {sent ? (
-                'Message sent!'
+              {state.submitting ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  Sending...
+                </>
+              ) : state.succeeded ? (
+                <>
+                  <CheckCircle className="h-4 w-4" />
+                  Message Sent
+                </>
               ) : (
                 <>
                   Send Message
