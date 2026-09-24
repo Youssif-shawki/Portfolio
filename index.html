@@ -2,30 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Alex Carter — Full-Stack Developer specializing in React, TypeScript, and modern web experiences." />
-    <title>Alex Carter — Full-Stack Developer</title>
-    <meta property="og:title" content="Alex Carter — Full-Stack Developer" />
-    <meta property="og:description" content="Full-stack developer building fast, accessible, and beautiful web experiences." />
+    <meta
+      name="description"
+      content="Youssif Shawky — Mobile Application Developer specializing in Flutter, Dart, and modern mobile experiences."
+    />
+    <title>Youssif shawky — Mobile Application Developer</title>
+    <meta
+      property="og:title"
+      content="Youssif Shawky — Mobile Application Developer"
+    />
+    <meta
+      property="og:description"
+      content="Mobile application developer building fast, accessible, and beautiful mobile experiences."
+    />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <script>
       // Prevent theme flash: apply theme before render
       (function () {
         try {
-          var stored = localStorage.getItem('portfolio-theme');
-          var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-          document.documentElement.setAttribute('data-theme', theme);
+          var stored = localStorage.getItem("portfolio-theme");
+          var theme =
+            stored ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
         } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute("data-theme", "dark");
         }
       })();
     </script>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
-</head>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
